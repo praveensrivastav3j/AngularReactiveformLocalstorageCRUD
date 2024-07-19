@@ -1,0 +1,119 @@
+<div class="container">
+    <div class="d-flex justify-content-between">
+        <h1>CRUD</h1>
+    </div>
+    <div>
+        <h3>{{userForm.value.id ? 'Update Data':'Add Data'}}</h3>
+    </div>
+    <div>
+        <!-- form -->
+        <form [formGroup]="userForm" (ngSubmit)="SubmitForm()">
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="fname" class="form-label">First name</label>
+                    <input type="text" class="form-control" id="fname" formControlName="fname" >
+                    @if(loginFormValue['fname'].invalid && ( loginFormValue['fname'].touched ||  LoginFormSubmitted  )){
+                        @if(loginFormValue['fname'].hasError('required')){
+                            <span class="text-danger">First Name is Required</span>
+                        }
+                    }
+                </div>
+
+                <div class="col-6">
+                    <label for="lname" class="form-label">Last name</label>
+                    <input type="text" class="form-control" id="lname" formControlName="lname">
+                    @if(loginFormValue['lname'].invalid && ( loginFormValue['lname'].touched ||  LoginFormSubmitted  )){
+                        @if(loginFormValue['lname'].hasError('required')){
+                            <span class="text-danger">Last Name is Required</span>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" formControlName="email">
+                    @if(loginFormValue['email'].invalid && ( loginFormValue['email'].touched ||  LoginFormSubmitted  )){
+                        @if(loginFormValue['email'].hasError('required')){
+                            <span class="text-danger">Email is Required</span>
+                        }
+                        @if(loginFormValue['email'].hasError('email')){
+                            <span class="text-danger">Enter a Valid Email</span>
+                        }
+                    }
+                </div>
+                <div class="col-6">
+                    <label for="dob" class="form-label">Date of birth</label>
+                    <input type="date" class="form-control" id="dob" formControlName="dob">
+                    @if(loginFormValue['dob'].invalid && ( loginFormValue['dob'].touched ||  LoginFormSubmitted  )){
+                        @if(loginFormValue['dob'].hasError('required')){
+                            <span class="text-danger">Date Of Birth is Required</span>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="address" class="form-label">Address</label>
+                    <textarea class="form-control" id="address" cols="10" rows="3" formControlName="address"></textarea>
+                    @if(loginFormValue['address'].invalid && ( loginFormValue['address'].touched ||  LoginFormSubmitted  )){
+                        @if(loginFormValue['address'].hasError('required')){
+                            <span class="text-danger">Address is Required</span>
+                        }
+                    }
+                </div>
+                <div class="col-6">
+                    <label for="phoneNo" class="form-label">Phone No.</label>
+                    <input type="tel" class="form-control" id="phoneNo" formControlName="phoneNo">
+                    @if(loginFormValue['phoneNo'].invalid && ( loginFormValue['phoneNo'].touched ||  LoginFormSubmitted  )){
+                        @if(loginFormValue['phoneNo'].hasError('required')){
+                            <span class="text-danger">Phone number is Required</span>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary me-2"
+                    type="submit">
+                    {{userForm.value.id ? 'Update':'Submit'}}</button>
+                <button class="btn btn-danger" type="reset">Reset</button>
+            </div>
+        </form>
+    </div>
+    <div>
+        <!-- table -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First name</th>
+                    <th scope="col">Last name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">DOB</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Phone number</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (user of userData; track user.id; let i= $index) {
+                <tr>
+                    <td>{{i+1}}</td>
+                    <td>{{user.fname}}</td>
+                    <td>{{user.lname}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.dob}}</td>
+                    <td>{{user.address}}</td>
+                    <td>{{user.phoneNo}}</td>
+                    <td>
+                        <button class="btn btn-outline-secondary "
+                            (click)="UpdateUserData(user.id)">Update</button>
+                        <button class="btn btn-outline-danger"
+                            (click)="DeleteUserData(user.id)">Delete</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
