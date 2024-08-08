@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './crud.component.css',
 })
 export class CrudComponent {
-  localStorageKey = "adbaudvsud";
+  localStorageKey = "storageKey";
   LoginFormSubmitted = false;
 
   userForm: FormGroup;
